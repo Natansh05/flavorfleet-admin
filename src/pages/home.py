@@ -2,10 +2,13 @@ import streamlit as st
 from src.supabase_client import supabase
 from src.models.food_item import FoodItem
 from src.widgets.food_card import render_food_card
-from src.widgets.add_item_form import render_add_item_form  # ✅ Import the new function
-
+from src.widgets.add_item_form import render_add_item_form 
 
 def show():
+    if "logged_in" not in st.session_state or not st.session_state.logged_in:
+        st.warning("🔒 Please login to access this page.")
+        st.stop()
+
     st.title("📋 FlavorFleet Menu Management")
 
     # Fetch categories
